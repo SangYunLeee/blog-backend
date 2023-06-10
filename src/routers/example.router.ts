@@ -1,9 +1,9 @@
 import express from 'express';
-import companyCtl from '../controllers/company.controller';
+import exampleCtl from '../controllers/example.controller';
 import {asyncWrap} from '../utils/myutils';
 const router = express.Router();
 
 // routing
-router.get('/company', asyncWrap(companyCtl.getCompanies));
+router.get('/', asyncWrap(exampleCtl.getExamples));
 
 export default router;

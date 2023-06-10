@@ -9,14 +9,12 @@ const dataSource = new DataSource({
   database: process.env.TYPEORM_DATABASE,
 });
 
-const bTestMode = process.env.TEST_MODE;
-
-console.log("bTestMode: ", bTestMode);
-
-if (bTestMode=="FALSE") {
-  dataSource.initialize().then(() => {
+dataSource.initialize()
+  .then(() => {
     console.log("Data Source has been initialized!");
-  });
-}
+  })
+  .catch(() => {
+    console.log("DB 연결에 실패했습니다. \n.env-example 파일을 올바르게 수정해야합니다.");
+  })
 
 export default dataSource;

@@ -1,6 +1,6 @@
 import express from 'express';
 import dotenv from 'dotenv';
-dotenv.config();
+dotenv.config({path: `${__dirname}/../.env-example`});
 import morgan from 'morgan';
 import router  from "./routers";
 import { morganCustomFormat } from "./utils/myutils";
@@ -17,7 +17,6 @@ export const createApp = () => {
   app.use(cookieParser());
   app.use(express.json());
   app.use(morgan(morganCustomFormat));
-  app.use(express.json());
   app.use(router);
 
   return app;

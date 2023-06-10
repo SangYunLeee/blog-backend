@@ -5,5 +5,5 @@ const getCompanies = async () => {
 }
 
 export default {
-    getCompanies,
+  getCompanies,
 }

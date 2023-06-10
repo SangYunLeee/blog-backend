@@ -1,19 +1,12 @@
 {
-    "name": "fastfive-freeonboarding",
+    "name": "express-sql-typescript-sample",
     "version": "0.0.1",
     "description": "",
     "scripts": {
-        "test:before": "dbmate -e TEST_DATABASE_URL up",
-        "test": "DOTENV_CONFIG_PATH=.env.test jest --setupFiles=dotenv/config",
-        "start": "npm run build:live",
-        "build": "tsc -p tsconfig.json && cp -r uploads ./build",
-        "build:live": "nodemon --delay 500ms --watch './src/**/*.ts' --exec \"ts-node\" src/server.ts",
-        "runbothserver": "concurrently \"npm run start\" \"npm run start --prefix frontend\"",
-        "build:watch": "tsc -w -p tsconfig.json",
-        "distribute": "npm i && npm run build && pm2 start build/src/server.js --name fastfive-backend -i max",
-        "distribute-stop": "pm2 del fastfive-backend"
+      "start": "nodemon --delay 500ms --watch './src/**/*.ts' --exec \"ts-node\" src/server.ts",
+      "build": "tsc -p tsconfig.json"
     },
-    "author": "sangyun, kihyeon, wooryeong",
+    "author": "sangyun",
     "license": "ISC",
     "dependencies": {
         "@types/cookie-parser": "^1.4.3",
@@ -30,7 +23,6 @@
         "morgan": "^1.10.0",
         "multer": "^1.4.5-lts.1",
         "mysql": "^2.18.1",
-        "nodemon": "^2.0.20",
         "reflect-metadata": "^0.1.13",
         "supertest": "^6.3.1",
         "typeorm": "^0.3.10"
@@ -51,8 +43,10 @@
         "@types/supertest": "^2.0.12",
         "babel-jest": "^29.2.2",
         "concurrently": "^7.5.0",
+        "cross-env": "^7.0.3",
+        "nodemon": "^2.0.20",
+        "pm2": "^5.1.2",
         "ts-node": "^10.9.1",
-        "typescript": "^4.8.4",
-        "pm2": "^5.1.2"
+        "typescript": "^4.8.4"
     }
 }

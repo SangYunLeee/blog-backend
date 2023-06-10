@@ -72,15 +72,15 @@ const getCompanies = async (searchOption: CompanySerarchOption) => {
     if (!searchOption) searchOption = {};
     let { id, companyName, limit = 100 } = searchOption;
     const query = `
-    SELECT
-      id,
-      company_name
-    FROM
-      companies
-    ${whereBuilder("id", id, true)}
-    ${whereBuilder("company_name", companyName)}
-    LIMIT ${limit}
-    `;
+        SELECT
+          id,
+          company_name
+        FROM
+          companies
+        ${whereBuilder("id", id, true)}
+        ${whereBuilder("company_name", companyName)}
+        LIMIT ${limit}
+      `;
     return await dataSource.query(query).then((list) => {
         if (companyName || id) {
             let [item] = list;

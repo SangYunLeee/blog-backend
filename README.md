@@ -1,15 +1,12 @@
+# SQL - Typescript - Node.js Stack Example
 
-해당 프로젝트는 패스트파이브 프리온보딩 기획문서를 사양으로 만들었습니다.
+## 주의사항
+- .env-example 파일의 DB 정보를 자신의 DB에 연결해야합니다.
+- DB 스키마는 별도로 제공하지 않았습니다.
 
-1. 회사 게시글을 지역별, 카테고리별 필터링하여 볼 수 있습니다.
-2. 게시글에 댓글을 추가할 수 있습니다.
-3. 일반회원은 회사 입주신청을 할 수 있으며 관리자 계정이 입주 신청을 승낙할 수 있습니다.
-4. 메인멤버라면 파일을 첨부가 가능한 회사 게시글을 추가/변경할 수 있습니다.
-
-테스트용 아이디 및 비밀번호입니다.
-
-| group status | author        | id                | pwd      |
-|--------------|---------------|-------------------|----------|
-| 퇴주자         | main member   | test1_1@naver.com | test123@ |
-| 퇴주자        | normal member | test1_2@naver.com | test123@ |
-| 입주기업       | main member   | test7@naver.com   | test123@ |
+## 실습 방법
+1. .env-example 파일을 수정해서 DB 정보를 바꿔준다.
+    - DB 서버의 DB table 도 만들어야한다.
+2. `npm install`
+3. `npm run`
+4. `curl localhost:5500/example`

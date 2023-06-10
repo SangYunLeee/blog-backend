@@ -5,12 +5,12 @@ import fs from 'fs';
 
 const asyncWrap = (asyncController : express.RequestHandler) => {
   return async (...[req, res, next] : Parameters<express.RequestHandler>) => {
-		  try {
-        await asyncController(req, res, next)
-      }
-      catch(error) {
-        next(error);
-      }
+    try {
+      asyncController(req, res, next)
+    }
+    catch(error) {
+      next(error);
+    }
   };
 }
 
