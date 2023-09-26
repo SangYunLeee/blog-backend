@@ -16,8 +16,9 @@ function handleDisconnect() {
     .then(() => {
     console.log("Data Source has been initialized!");
     })
-    .catch(() => {
+    .catch((e) => {
       console.log("try re-connecting...");
+      console.log("errorDetail: ", e);
       setTimeout(handleDisconnect, 2000);
     });
 }
