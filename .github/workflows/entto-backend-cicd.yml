@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main  # Adjust the branch as needed
+    paths:
+      - src
   workflow_dispatch:
 
 env:
@@ -56,7 +58,7 @@ jobs:
       # 새 이미지 버전으로 파일 수정
       - name: Update Kubernetes resources
         run: |
-          cd argocd-enttolog/entto
+          cd argocd-enttolog/applications/entto/manifests
           kustomize edit set image ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}:${{ steps.set-tag.outputs.tag }}
           cat kustomization.yaml
 
