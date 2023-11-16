@@ -126,9 +126,9 @@ const findUsers = async (searchOption: UserSearchOption): Promise<UserInfo[]> =>
         )
         .then((users) => {
             return [...users].map((user) => {
-                let profile = JSON.parse(user.profile);
+                let profile = user.profile;
                 if (profile.profileUrls) {
-                  const profileUrls = JSON.parse(profile.profileUrls);
+                  const profileUrls = profile.profileUrls;
                   profile.profileUrls = profileUrls;
                 }
                 let profileImgUrl = profile.profileImgUrl

@@ -48,7 +48,7 @@ const updateProfile = async (req: express.Request, res: express.Response) => {
         profileIntro,
         userId: +req.userInfo.id,
         profileImg,
-        linkUrls: linkUrls? JSON.parse(req.body.linkUrls) : undefined
+        linkUrls: linkUrls? req.body.linkUrls : undefined
     };
     await userSvc.updateProfile(input);
     res.status(200).json({ message: "PROFILE_UPDATED" });

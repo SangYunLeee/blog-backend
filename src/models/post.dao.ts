@@ -66,9 +66,6 @@ const getPosts = async (searchOption: SearchPostDto) => {
         }
         return {
           ...item,
-          category: JSON.parse(item.category),
-          user: JSON.parse(item.user),
-          topic: JSON.parse(item.topic),
           tags: JSON.parse(item.tags),
         }
     })

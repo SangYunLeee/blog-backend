@@ -43,8 +43,6 @@ const getGrasses = async (searchInput: GrassSearchType) => {
 
         return {
           ...item,
-          posts: JSON.parse(item.posts),
-          comments: JSON.parse(item.comments),
           count,
           level,
         };

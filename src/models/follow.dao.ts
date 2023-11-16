@@ -78,9 +78,7 @@ const getFollowings = async (targetUserId: string, userId: string) => {
         `,
         array
     ).then(answer => {
-      return [...answer].map((item)=> {
-        return userId? {...item, registed: JSON.parse(item.registed)} : item
-      })
+      return answer;
     });
     return list;
 };

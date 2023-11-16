@@ -44,7 +44,7 @@ const getComments = async (postId: string) => {
         )
         .then((comments) => {
             return [...comments].map((comment) => {
-                let user = JSON.parse(comment.user);
+                let user = comment.user;
                 let profileImgUrl = user.profileImgUrl ? `${domain}${user.profileImgUrl}` : `${domain}/user/default-img.png`;
                 return {
                     ...comment,

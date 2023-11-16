@@ -8,10 +8,10 @@ frontend
 tests
 typescript-test
 
-uploads/.well-known
-uploads/dev
-uploads/post
-uploads/temp
-uploads/user
+uploads_/.well-known
+uploads_/dev
+uploads_/post
+uploads_/temp
+uploads_/user
 !uploads/user/default-img.png
 .*env*

@@ -17,6 +17,6 @@ services:
       - HTTPS_PORT=443
     volumes:
       - /etc/letsencrypt/:/etc/letsencrypt:ro
-      # - ./uploads_/:/app/uploads_
+      - ./uploads_/:/app/uploads_
     extra_hosts:
       host.docker.internal: host-gateway
