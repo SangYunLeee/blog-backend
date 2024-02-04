@@ -50,18 +50,13 @@ jobs:
           token: ${{ secrets.ACTION_TOKEN }}
           path: argocd-enttolog
 
+      # 새 이미지 버전으로 파일 수정
       - name: Update Kubernetes Image Tag
         uses: mikefarah/yq@master
         with:
           cmd: |
             cd argocd-enttolog/applications/entto/manifests
-            yq -i '.backend.image.tag = "${{ secrets.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}:${{ steps.set-tag.outputs.tag }}"' 'values.yaml'
-      # 새 이미지 버전으로 파일 수정
-      - name: Update Kubernetes resources
-        run: |
-          cd argocd-enttolog/applications/entto/manifests
-          kustomize edit set image
-          cat kustomization.yaml
+            yq -i '.backend.image.tag = "${{ steps.set-tag.outputs.tag }}"' 'values.yaml'
 
       # 수정된 파일 commit & push
       - name: Commit files
