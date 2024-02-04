@@ -40,10 +40,6 @@ jobs:
       - name: Cleanup
         run: docker logout
 
-      # kustomize 명령을 가져온다.
-      - name: Setup Kustomize
-        uses: imranismail/setup-kustomize@v1
-
       - name: Checkout kustomize repository
         uses: actions/checkout@v2
         with:
@@ -53,11 +49,18 @@ jobs:
           # 다른 저장소에 push 하려면 Personal Access Token이 필요.
           token: ${{ secrets.ACTION_TOKEN }}
           path: argocd-enttolog
+
+      - name: Update Kubernetes Image Tag
+        uses: mikefarah/yq@master
+        with:
+          cmd: |
+            cd argocd-enttolog/applications/entto/manifests
+            yq -i '.backend.image.tag = "${{ secrets.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}:${{ steps.set-tag.outputs.tag }}"' 'values.yaml'
       # 새 이미지 버전으로 파일 수정
       - name: Update Kubernetes resources
         run: |
           cd argocd-enttolog/applications/entto/manifests
-          kustomize edit set image ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}:${{ steps.set-tag.outputs.tag }}
+          kustomize edit set image
           cat kustomization.yaml
 
       # 수정된 파일 commit & push
