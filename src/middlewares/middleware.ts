@@ -1,6 +1,6 @@
 import type express from "express";
+import { app } from "../server";
 import jwt from "jsonwebtoken";
-
 
 const authMiddleware = async (...[req, _, next]: Parameters<express.RequestHandler>): Promise<any> => {
     authenticate(req, next);
@@ -12,10 +12,18 @@ const authInfoMiddleware = async (...[req, _, next]: Parameters<express.RequestH
 
 const adminMiddleware = async (...[req, _, next]: Parameters<express.RequestHandler>): Promise<any> => {
     const userInfo = req.userInfo;
+
     if (userInfo.email != "admin@gmail.com") {
         throw { status: 403, message: "접근 권한이 없습니다." };
     }
     next();
+};
+
+const urlMiddleware = async (...[req, _, next]: Parameters<express.RequestHandler>): Promise<any> => {
+  app.locals.requestInfo = {
+    hostInfo: `${req.protocol}://${req.get('host')}`
+  }
+  next();
 };
 
 const decodeToken = (token: string) => {
@@ -59,4 +67,5 @@ export default {
     adminMiddleware,
     errorHandler,
     authInfoMiddleware,
+    urlMiddleware,
 };

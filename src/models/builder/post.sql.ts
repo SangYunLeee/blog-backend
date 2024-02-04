@@ -1,40 +1,41 @@
-import {domain} from "../common";
+import {getDomain} from "../common";
 const defaultUserImgUrl = '/user/default-img.png';
 
-const queryOfSelectColumn = `
-  p.id,
-  p.title,
-  p.content,
-  CONCAT('${domain}',p.thumnail_img_url) AS thumbnailImgUrl,
-  p.secret_type AS secretType,
-  p.created_at as createdAt,
-  JSON_OBJECT(
-    'id',
-    cate.id,
-    'categoryName',
-    cate.category_name
-  ) AS category,
-  JSON_OBJECT(
-    'id',
-    u.id,
-    'nickname',
-    u.nickname,
-    'profileImgUrl',
-    CONCAT('${domain}',IFNULL(u.profile_img_url, '${defaultUserImgUrl}'))
-  ) AS user,
-  JSON_OBJECT(
-    'id',
-    t.id,
-    'topicName',
-    t.topic_name
-  ) AS topic,
-  IFNULL(tagsOnPost.tags, "[]") as tags
-`
-
+const queryOfSelectColumn = function () {
+  return `
+    p.id,
+    p.title,
+    p.content,
+    CONCAT('${getDomain()}',p.thumnail_img_url) AS thumbnailImgUrl,
+    p.secret_type AS secretType,
+    p.created_at as createdAt,
+    JSON_OBJECT(
+      'id',
+      cate.id,
+      'categoryName',
+      cate.category_name
+    ) AS category,
+    JSON_OBJECT(
+      'id',
+      u.id,
+      'nickname',
+      u.nickname,
+      'profileImgUrl',
+      CONCAT('${getDomain()}',IFNULL(u.profile_img_url, '${defaultUserImgUrl}'))
+    ) AS user,
+    JSON_OBJECT(
+      'id',
+      t.id,
+      'topicName',
+      t.topic_name
+    ) AS topic,
+    IFNULL(tagsOnPost.tags, "[]") as tags
+  `
+}
 const getQueryOfSelectPost = ({onlyCount} : {onlyCount?: boolean} = {onlyCount: false}) => {
   return `
   SELECT
-  ${onlyCount ? 'count(*) AS maxCount' : queryOfSelectColumn}
+  ${onlyCount ? 'count(*) AS maxCount' : queryOfSelectColumn()}
   FROM
     posts AS p
     JOIN users AS u

@@ -1,5 +1,5 @@
 import dataSource from "./database";
-import {domain} from "./common";
+import {getDomain} from "./common";
 
 const defaultUserImgUrl = '/user/default-img.png';
 
@@ -60,7 +60,7 @@ const getFollowings = async (targetUserId: string, userId: string) => {
           follow.target_users_id AS id,
           users.nickname,
           users.email,
-          CONCAT('${domain}',IFNULL(users.profile_img_url, '${defaultUserImgUrl}')) AS profileImgUrl
+          CONCAT('${getDomain()}',IFNULL(users.profile_img_url, '${defaultUserImgUrl}')) AS profileImgUrl
           ${userId?`, IF(ISNULL(myFollow.users_id), 'false', 'true') AS registed` : ''}
         FROM
           follow
@@ -92,7 +92,7 @@ const getFollowers = async (targetUserId: string, userId: string) => {
             follow.users_id AS id,
             users.nickname,
             users.email,
-            CONCAT('${domain}',IFNULL(users.profile_img_url, '${defaultUserImgUrl}')) AS profileImgUrl
+            CONCAT('${getDomain()}',IFNULL(users.profile_img_url, '${defaultUserImgUrl}')) AS profileImgUrl
             ${userId?`, IF(ISNULL(myFollow.users_id), 'false', 'true') AS registed` : ''}
         FROM
           follow

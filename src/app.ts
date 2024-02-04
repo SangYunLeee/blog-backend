@@ -13,6 +13,7 @@ import { morganCustomFormat } from "./utils/myutils";
 import fileManager from "./middlewares/fileManager";
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
+import middleware from "./middlewares/middleware";
 
 export const createApp = () => {
   const app = express();
@@ -25,6 +26,7 @@ export const createApp = () => {
   app.use(express.json());
   app.use(morgan(morganCustomFormat));
   app.use(express.json());
+  app.use(middleware.urlMiddleware);
   app.use(router);
   fileManager.makeUploadFolder();
   return app;

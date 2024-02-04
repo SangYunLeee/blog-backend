@@ -1,5 +1,5 @@
 import dataSource from "./database";
-import {domain} from "./common";
+import {getDomain} from "./common";
 
 // 댓글 생성
 const createComments = async (postId: number, content: string, userId: number) => {
@@ -45,7 +45,7 @@ const getComments = async (postId: string) => {
         .then((comments) => {
             return [...comments].map((comment) => {
                 let user = comment.user;
-                let profileImgUrl = user.profileImgUrl ? `${domain}${user.profileImgUrl}` : `${domain}/user/default-img.png`;
+                let profileImgUrl = user.profileImgUrl ? `${getDomain()}${user.profileImgUrl}` : `${getDomain()}/user/default-img.png`;
                 return {
                     ...comment,
                     user: { ...user, profileImgUrl },

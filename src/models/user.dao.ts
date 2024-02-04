@@ -1,6 +1,6 @@
 import dataSource from "./database";
 import { whereBuilder, setBuilder } from "./builder/queryBuilder";
-import {domain} from "./common";
+import {getDomain} from "./common";
 
 // 계정 생성
 const createUser = async (nickname: string, email: string, hashed_password: string) => {
@@ -128,21 +128,20 @@ const findUsers = async (searchOption: UserSearchOption): Promise<UserInfo[]> =>
             return [...users].map((user) => {
                 let profile = user.profile;
                 if (profile.profileUrls) {
-                  const profileUrls = profile.profileUrls;
+                  const profileUrls = JSON.parse(profile.profileUrls);
                   profile.profileUrls = profileUrls;
                 }
                 let profileImgUrl = profile.profileImgUrl
                   ?
-                    `${domain}${profile.profileImgUrl}`
+                    `${getDomain()}${profile.profileImgUrl}`
                   :
-                    `${domain}/user/default-img.png`
+                    `${getDomain()}/user/default-img.png`
                 return {
                   ...user,
                   profile: { ...profile, profileImgUrl },
                 };
             });
         });
-
     return userInfos;
 };
 
